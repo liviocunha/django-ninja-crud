@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ninja import NinjaAPI
-from apidemocrud.products.views import router_api
+from products.views import router_api
 
 
 api = NinjaAPI()
@@ -24,5 +24,5 @@ api.add_router('api', router_api)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', api.urls)
+    path('', api.urls),
 ]
