@@ -110,6 +110,7 @@ ENV/
 env.bak/
 venv.bak/
 .idea/
+apidemocrud/products/migrations/
 
 # Spyder project settings
 .spyderproject
