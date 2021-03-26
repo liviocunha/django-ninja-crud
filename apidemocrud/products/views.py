@@ -42,3 +42,21 @@ def get_department(request, department_id: int):
 def get_product(request, sku: str):
     product = get_object_or_404(Product, sku=sku)
     return product
+
+
+@router_api.put("/department/{department_id}")
+def update_department(request, department_id: int, payload: DepartmentIn):
+    department = get_object_or_404(Department, id=department_id)
+    for attr, value in payload.dict().items():
+        setattr(department, attr, value)
+    department.save()
+    return {"success": True}
+
+
+@router_api.put("/product/{sku}")
+def update_product(request, sku: str, payload: ProductsIn):
+    product = get_object_or_404(Product, sku=sku)
+    for attr, value in payload.dict().items():
+        setattr(product, attr, value)
+    product.save()
+    return {"success": True}
