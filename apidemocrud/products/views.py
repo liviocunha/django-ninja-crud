@@ -1,50 +1,63 @@
-from ninja import Router
+from ninja import Router, File
+from ninja.security import APIKeyQuery
+# from ninja.files import UploadedFile
 from typing import List
 from .schemas import ProductsIn, ProductsOut, DepartmentIn, DepartmentOut
-from .models import Product, Department
+from .models import Product, Department, Client
 from django.shortcuts import get_object_or_404
 
 
+class ApiKey(APIKeyQuery):
+    param_name = "api_key"
+
+    def authenticate(self, request, key):
+        try:
+            return Client.objects.get(key=key)
+        except Client.DoesNotExist:
+            pass
+
+
 router_api = Router()
+api_key = ApiKey()
 
 
-@router_api.post('/product')
+@router_api.post("/product", auth=api_key)
 def create_product(request, payload: ProductsIn):
     product = Product.objects.create(**payload.dict())
     return {"id": product.id}
 
 
-@router_api.post('/department')
+@router_api.post("/department", auth=api_key)
 def create_department(request, payload: DepartmentIn):
     department = Department.objects.create(**payload.dict())
     return {"id": department.id}
 
 
-@router_api.get("/product", response=List[ProductsOut])
+@router_api.get("/product", response=List[ProductsOut], auth=api_key)
 def list_product(request):
     qs = Product.objects.all()
     return qs
 
 
-@router_api.get("/department", response=List[DepartmentOut])
+@router_api.get("/department", response=List[DepartmentOut], auth=api_key)
 def list_department(request):
     qs = Department.objects.all()
     return qs
 
 
-@router_api.get("/department/{department_id}", response=DepartmentOut)
+@router_api.get("/department/{department_id}", response=DepartmentOut, auth=api_key)
 def get_department(request, department_id: int):
     department = get_object_or_404(Department, id=department_id)
     return department
 
 
-@router_api.get("/product/{sku}", response=ProductsOut)
+@router_api.get("/product/{sku}", response=ProductsOut, auth=api_key)
 def get_product(request, sku: str):
     product = get_object_or_404(Product, sku=sku)
     return product
 
 
-@router_api.put("/department/{department_id}")
+@router_api.put("/department/{department_id}", auth=api_key)
 def update_department(request, department_id: int, payload: DepartmentIn):
     department = get_object_or_404(Department, id=department_id)
     for attr, value in payload.dict().items():
@@ -53,7 +66,7 @@ def update_department(request, department_id: int, payload: DepartmentIn):
     return {"success": True}
 
 
-@router_api.put("/product/{sku}")
+@router_api.put("/product/{sku}", auth=api_key)
 def update_product(request, sku: str, payload: ProductsIn):
     product = get_object_or_404(Product, sku=sku)
     for attr, value in payload.dict().items():
@@ -62,18 +75,15 @@ def update_product(request, sku: str, payload: ProductsIn):
     return {"success": True}
 
 
-@router_api.delete("/department/{department_id}")
+@router_api.delete("/department/{department_id}", auth=api_key)
 def delete_department(request, department_id: int):
     department = get_object_or_404(Department, id=department_id)
     department.delete()
     return {"success": True}
 
 
-@router_api.delete("/product/{sku}")
+@router_api.delete("/product/{sku}", auth=api_key)
 def delete_product(request, sku: str):
     product = get_object_or_404(Product, sku=sku)
     product.delete()
     return {"success": True}
-
-
-
