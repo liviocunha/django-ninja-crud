@@ -60,3 +60,20 @@ def update_product(request, sku: str, payload: ProductsIn):
         setattr(product, attr, value)
     product.save()
     return {"success": True}
+
+
+@router_api.delete("/department/{department_id}")
+def delete_department(request, department_id: int):
+    department = get_object_or_404(Department, id=department_id)
+    department.delete()
+    return {"success": True}
+
+
+@router_api.delete("/product/{sku}")
+def delete_product(request, sku: str):
+    product = get_object_or_404(Product, sku=sku)
+    product.delete()
+    return {"success": True}
+
+
+
