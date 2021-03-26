@@ -17,3 +17,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.sku
+
+
+class Client(models.Model):
+    name = models.CharField(max_length=100, help_text='Nome do Client autorizado.', verbose_name='NOME DO CLIENT')
+    key = models.CharField(max_length=20, unique=True, help_text='API Key gerado para o cliente.'
+                           , verbose_name='API KEY')
