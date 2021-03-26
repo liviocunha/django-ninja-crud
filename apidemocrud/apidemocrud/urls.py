@@ -19,10 +19,10 @@ from ninja import NinjaAPI
 from products.views import router_api
 
 
-api = NinjaAPI()
+api = NinjaAPI(csrf=True)
 api.add_router('api', router_api)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', api.urls),
+    path('', admin.site.urls),
+    path('api/', api.urls),
 ]
