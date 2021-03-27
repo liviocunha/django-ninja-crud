@@ -2,17 +2,17 @@
 ## Fast Django REST Framework
 CRUD - Create, Retrieve, Update, Delete are the four basic functions of persistent storage.
 ### Auth - API Key
-![create](imgs/auth-api-key.gif)
+![create](apidemocrud/imgs/auth-api-key.gif)
 ### Create
-![create](imgs/create.gif)
+![create](apidemocrud/imgs/create.gif)
 ### Retrieve (all list)
-![create](imgs/list.gif)
+![create](apidemocrud/imgs/list.gif)
 ### Retrieve (get one item)
-![create](imgs/get.gif)
+![create](apidemocrud/imgs/get.gif)
 ### Update
-![create](imgs/update.gif)
+![create](apidemocrud/imgs/update.gif)
 ### Delete
-![create](imgs/delete.gif)
+![create](apidemocrud/imgs/delete.gif)
 
 ## This project was done with:
 * Python 3.8.5
