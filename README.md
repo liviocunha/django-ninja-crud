@@ -17,7 +17,7 @@ CRUD - Create, Retrieve, Update, Delete are the four basic functions of persiste
 ## This project was done with:
 * Python 3.8.5
 * Django 3.1.7
-* Django Ninja 0.11.0
+* Django Ninja 0.12.1
 * python-decouple 3.4
 
 ## How to run project?
