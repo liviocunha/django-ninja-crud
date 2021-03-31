@@ -1,6 +1,15 @@
 from ninja import Schema
 
 
+class DepartmentIn(Schema):
+    title: str
+
+
+class DepartmentOut(Schema):
+    id: int
+    title: str
+
+
 class ProductsIn(Schema):
     sku: str
     title: str
@@ -13,14 +22,4 @@ class ProductsOut(Schema):
     sku: str
     title: str
     stock: int = 0
-    department_id: int = None
-
-
-class DepartmentIn(Schema):
-    title: str
-
-
-class DepartmentOut(Schema):
-    id: int
-    title: str
-
+    department: DepartmentOut = None
