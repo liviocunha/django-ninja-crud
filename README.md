@@ -25,6 +25,7 @@ CRUD - Create, Retrieve, Update, Delete are the four basic functions of persiste
 * Create virtualenv with Python 3.
 * Active the virtualenv.
 * Install dependencies.
+* Create .env run contrib/env_gen.py  
 * Run the migrations.
 * Create user admin.
 ```
@@ -33,6 +34,7 @@ cd django-ninja-crud
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
+python3 contrib/env_gen.py
 python3 manage.py makemigrations core
 python3 manage.py migrate
 python3 manage.py createsuperuser
