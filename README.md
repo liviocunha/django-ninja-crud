@@ -35,7 +35,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
 python3 contrib/env_gen.py
-python3 manage.py makemigrations core
+python3 manage.py makemigrations products
 python3 manage.py migrate
 python3 manage.py createsuperuser
 python3 manage.py runserver
