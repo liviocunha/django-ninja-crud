@@ -19,3 +19,12 @@ class TestesDemoCrud(TestCase):
     def test_auth(self):
         response = client.get(f"/auth?api_key={self.client_user.key}")
         self.assertEqual(response.json(), f"Authenticated {self.client_user.name}")
+        self.assertEqual(response.status_code, 200)
+
+    def test_auth_unauthorized(self):
+        response = client.get(f"/auth?api_key={fake.uuid4()}")
+        unauthorized = {
+            'detail': 'Unauthorized'
+        }
+        self.assertEqual(response.json(), unauthorized)
+        self.assertEqual(response.status_code, 401)
